@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - floor
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: InteractObjs
+    uniqueID: 1045954101
+    locked: 0
+  - name: Player
+    uniqueID: 3579230957
     locked: 0
   - name: Overlay
     uniqueID: 1299517121
