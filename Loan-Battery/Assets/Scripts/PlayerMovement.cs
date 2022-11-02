@@ -7,10 +7,12 @@ public class PlayerMovement : MonoBehaviour
 
   private Rigidbody2D rb;
   private BoxCollider2D coll;
+  private BoxCollider2D door;
   [SerializeField] private LayerMask jumpableGround;
 
   public GameObject bodyPrefab;
   private bool interactCorpse = false;
+  private bool interactDoor = false;
   private int charges = 3;
     // Start is called before the first frame update
     void Start()
@@ -41,9 +43,11 @@ public class PlayerMovement : MonoBehaviour
       } else if(Input.GetKeyDown("q") && charges <= 0){
         Debug.Log("no charges left");
       }
-      //grab charge from body
-      if(interactCorpse == true && Input.GetKeyDown("e")){
-        Debug.Log("worked");
+      //put charge in door to open it
+      if(interactDoor == true && Input.GetKeyDown("e") && charges >=1){
+        //removes charge and changes door to trigger so player can move through it
+        charges -= 1;
+        door.isTrigger = true;
       }
     }
 
@@ -58,12 +62,21 @@ public class PlayerMovement : MonoBehaviour
       if(target.gameObject.tag == "corpse"){
         interactCorpse = true;
       }
+      //touches a door
+      if(target.gameObject.tag == "door"){
+        interactDoor = true;
+        door = target.gameObject.GetComponent<BoxCollider2D>();
+      }
     }
     //check when collisions stop (for interactions)
     void OnCollisionExit2D(Collision2D target){
       //leaves corpse
       if(target.gameObject.tag == "corpse"){
         interactCorpse = false;
+      }
+      //leaves a door
+      if(target.gameObject.tag == "door"){
+        interactDoor = false;
       }
     }
 }
