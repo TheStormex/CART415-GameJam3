@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] private LayerMask jumpableGround;
 
   public GameObject bodyPrefab;
+  public Text chargeTxt;
   private bool interactCorpse = false;
   private bool interactDoor = false;
   private int charges = 3;
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         //tps player to starting position
         transform.position = new Vector2(-17, -8);
         charges -= 1;
+        chargeTxt.text = charges + " Charges";
       } else if(Input.GetKeyDown("q") && charges <= 0){
         Debug.Log("no charges left");
       }
@@ -47,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
       if(interactDoor == true && Input.GetKeyDown("e") && charges >=1){
         //removes charge and changes door to trigger so player can move through it
         charges -= 1;
+        chargeTxt.text = charges + " Charges";
         door.isTrigger = true;
       }
     }
