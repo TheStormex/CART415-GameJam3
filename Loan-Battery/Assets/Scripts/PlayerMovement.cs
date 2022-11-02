@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
   private Rigidbody2D rb;
   private BoxCollider2D coll;
   private BoxCollider2D door;
+  private GameObject plate;
   [SerializeField] private LayerMask jumpableGround;
 
   public GameObject bodyPrefab;
   public Text chargeTxt;
   private bool interactCorpse = false;
   private bool interactDoor = false;
+  private bool interactPlate = false;
   private int charges = 3;
     // Start is called before the first frame update
     void Start()
@@ -63,24 +65,37 @@ public class PlayerMovement : MonoBehaviour
     //check for any collisions
     void OnCollisionEnter2D(Collision2D target){
       //touches corpse
-      if(target.gameObject.tag == "corpse"){
-        interactCorpse = true;
+      switch(target.gameObject.tag){
+        case "corpse": interactCorpse = true;
+          break;
+        case "door": interactDoor = true;
+          door = target.gameObject.GetComponent<BoxCollider2D>();
+          break;
       }
-      //touches a door
-      if(target.gameObject.tag == "door"){
-        interactDoor = true;
-        door = target.gameObject.GetComponent<BoxCollider2D>();
-      }
+      // if(target.gameObject.tag == "corpse"){
+      //   interactCorpse = true;
+      // }
+      // //touches a door
+      // if(target.gameObject.tag == "door"){
+      //   interactDoor = true;
+      //   door = target.gameObject.GetComponent<BoxCollider2D>();
+      // }
     }
     //check when collisions stop (for interactions)
     void OnCollisionExit2D(Collision2D target){
       //leaves corpse
-      if(target.gameObject.tag == "corpse"){
-        interactCorpse = false;
+      switch(target.gameObject.tag){
+        case "corpse": interactCorpse = false;
+          break;
+        case "door": interactDoor = false;
+          break;
       }
-      //leaves a door
-      if(target.gameObject.tag == "door"){
-        interactDoor = false;
-      }
+      // if(target.gameObject.tag == "corpse"){
+      //   interactCorpse = false;
+      // }
+      // //leaves a door
+      // if(target.gameObject.tag == "door"){
+      //   interactDoor = false;
+      // }
     }
 }

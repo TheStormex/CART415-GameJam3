@@ -8,6 +8,7 @@ TagManager:
   - player
   - corpse
   - door
+  - plate
   layers:
   - Default
   - TransparentFX
