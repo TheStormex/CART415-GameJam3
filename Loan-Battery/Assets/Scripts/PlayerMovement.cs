@@ -48,12 +48,14 @@ public class PlayerMovement : MonoBehaviour
       } else if(Input.GetKeyDown("q") && charges <= 0){
         Debug.Log("no charges left");
       }
+
       //put charge in door to open it
       if(interactDoor == true && Input.GetKeyDown("e") && charges >=1){
         //removes charge and changes door to trigger so player can move through it
         charges -= 1;
         chargeTxt.text = charges + " Charges";
-        door.isTrigger = true;
+
+        door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 5f);
       }
     }
 

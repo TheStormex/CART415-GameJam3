@@ -20,10 +20,10 @@ public class Finish : MonoBehaviour
     }
 
     private void CompleteLevel(){
-      if(increaseLvl.levelNum >= 3){
-        Debug.Log("Game over");
-      } else {
+      // if(increaseLvl.levelNum >= 3){
+      //   Debug.Log("Game over");
+      // } else {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-      }
+      //}
     }
 }
