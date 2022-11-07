@@ -9,25 +9,29 @@ public class PressurePlate : MonoBehaviour
   private Rigidbody2D plateRB;
 
   private bool doorOpen;
+  private float doorX;
+  private float doorY;
     // Start is called before the first frame update
     void Start()
     {
       plateColl = GetComponent<BoxCollider2D>();
       plateRB = GetComponent<Rigidbody2D>();
+      doorY = door.transform.position.y;
+      doorX = door.transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
       if(doorOpen){
-        door.transform.position = new Vector2(4.5f, 2.5f);
+        door.transform.position = new Vector2(doorX, doorY + 5f);
       }
     }
 
     void OnCollisionEnter2D(Collision2D target){
       //touches corpse
       if(target.gameObject.tag == "corpse"){
-        door.transform.position = new Vector2(4.5f, 2.5f);
+        door.transform.position = new Vector2(doorX, doorY + 5f);
         this.gameObject.SetActive(false);
       }
       if(target.gameObject.tag == "player"){
@@ -38,7 +42,7 @@ public class PressurePlate : MonoBehaviour
     void OnCollisionExit2D(Collision2D target){
       if(target.gameObject.tag == "player"){
         doorOpen = false;
-        door.transform.position = new Vector2(4.5f, -2.5f);
+        door.transform.position = new Vector2(doorX, doorY);
       }
     }
 }

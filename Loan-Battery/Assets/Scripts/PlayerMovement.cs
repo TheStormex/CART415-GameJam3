@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
   private bool interactCorpse = false;
   private bool interactDoor = false;
   private bool interactPlate = false;
-  private int charges = 3;
+  public int charges = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +28,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      //-------- PLAYER CONTROL -----------
       float axisX = Input.GetAxisRaw("Horizontal");
       rb.velocity = new Vector2(axisX * 7f, rb.velocity.y);
-      //player jumps
-        if(Input.GetButtonDown("Jump") && IsGrounded()){
-          rb.velocity = new Vector2(rb.velocity.x, 12f);
-        }
+      if(Input.GetButtonDown("Jump") && IsGrounded()){
+        rb.velocity = new Vector2(rb.velocity.x, 12f);
+      }
+      //-------- CORPSE CONTROL ------------
       //create new Corpse
-      if(Input.GetKeyDown("q") && charges >= 1){
+      if(Input.GetKeyDown("space") && charges >= 1){
         //finds player position
         float playerX = transform.position.x;
         float playerY = transform.position.y;
@@ -48,13 +49,12 @@ public class PlayerMovement : MonoBehaviour
       } else if(Input.GetKeyDown("q") && charges <= 0){
         Debug.Log("no charges left");
       }
-
+      //-------- DOOR INTERACTION ------------
       //put charge in door to open it
       if(interactDoor == true && Input.GetKeyDown("e") && charges >=1){
         //removes charge and changes door to trigger so player can move through it
         charges -= 1;
         chargeTxt.text = charges + " Charges";
-
         door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 5f);
       }
     }
@@ -72,16 +72,10 @@ public class PlayerMovement : MonoBehaviour
           break;
         case "door": interactDoor = true;
           door = target.gameObject.GetComponent<BoxCollider2D>();
+          // string name = target.gameObject.name;
+          // split = String.Split("_");
           break;
       }
-      // if(target.gameObject.tag == "corpse"){
-      //   interactCorpse = true;
-      // }
-      // //touches a door
-      // if(target.gameObject.tag == "door"){
-      //   interactDoor = true;
-      //   door = target.gameObject.GetComponent<BoxCollider2D>();
-      // }
     }
     //check when collisions stop (for interactions)
     void OnCollisionExit2D(Collision2D target){
@@ -92,12 +86,5 @@ public class PlayerMovement : MonoBehaviour
         case "door": interactDoor = false;
           break;
       }
-      // if(target.gameObject.tag == "corpse"){
-      //   interactCorpse = false;
-      // }
-      // //leaves a door
-      // if(target.gameObject.tag == "door"){
-      //   interactDoor = false;
-      // }
     }
 }
