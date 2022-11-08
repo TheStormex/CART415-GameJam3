@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
   private bool interactDoor = false;
   private bool interactPlate = false;
   public int charges = 3;
+  public int respawns = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
       }
       //-------- CORPSE CONTROL ------------
       //create new Corpse
-      if(Input.GetKeyDown("space") && charges >= 1){
+      if(Input.GetKeyDown("space") && respawns >= 1){
         //finds player position
         float playerX = transform.position.x;
         float playerY = transform.position.y;
@@ -44,19 +45,21 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(bodyPrefab, new Vector2(playerX, playerY), Quaternion.identity);
         //tps player to starting position
         transform.position = new Vector2(-17, -8);
-        charges -= 1;
-        chargeTxt.text = charges + " Charges";
-      } else if(Input.GetKeyDown("q") && charges <= 0){
-        Debug.Log("no charges left");
+        charges = 3;
+        respawns -= 1;
+      } else if(Input.GetKeyDown("q") && respawns <= 0){
+        Debug.Log("no respawns left");
       }
       //-------- DOOR INTERACTION ------------
       //put charge in door to open it
       if(interactDoor == true && Input.GetKeyDown("e") && charges >=1){
         //removes charge and changes door to trigger so player can move through it
         charges -= 1;
-        chargeTxt.text = charges + " Charges";
         door.transform.position = new Vector2(door.transform.position.x, door.transform.position.y + 5f);
       }
+
+      //change charge Text
+      chargeTxt.text = charges + " Charges";
     }
 
     private bool IsGrounded(){
