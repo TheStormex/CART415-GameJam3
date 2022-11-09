@@ -23,7 +23,7 @@ public class CorpseControl : MonoBehaviour
     //check for any collisions
     void OnCollisionEnter2D(Collision2D target){
       //when the corpse hits the floor, turn body to Static
-      if(target.gameObject.tag == "floor"){
+      if(target.gameObject.tag == "floor" || target.gameObject.tag == "plate"){
         rb.bodyType = RigidbodyType2D.Static;
       }
     }

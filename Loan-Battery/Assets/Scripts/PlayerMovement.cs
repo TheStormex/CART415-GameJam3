@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
   private GameObject plate;
   [SerializeField] private LayerMask jumpableGround;
 
+  public SpriteRenderer spriteRenderer;
+  public Sprite kbotL;
+  public Sprite kbotR;
+
   public GameObject bodyPrefab;
   public Text chargeTxt;
   private bool interactCorpse = false;
@@ -34,6 +38,13 @@ public class PlayerMovement : MonoBehaviour
       rb.velocity = new Vector2(axisX * 7f, rb.velocity.y);
       if(Input.GetButtonDown("Jump") && IsGrounded()){
         rb.velocity = new Vector2(rb.velocity.x, 12f);
+        GetComponent<AudioSource>().Play();
+      }
+      //-------- WALK CHANGE PIC -----------
+      if(Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)){
+        spriteRenderer.sprite = kbotL;
+      } else if(Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow)){
+        spriteRenderer.sprite = kbotR;
       }
       //-------- CORPSE CONTROL ------------
       //create new Corpse

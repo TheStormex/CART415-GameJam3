@@ -5,6 +5,10 @@ using UnityEngine;
 public class PanelScript : MonoBehaviour
 {
   public PlayerMovement player;
+  public SpriteRenderer spriteRenderer;
+  public Sprite panel1;
+  public Sprite panel2;
+  public Sprite panel3;
   private bool panelInteract = false;
   public int playerCharges;
   private int panelCharges = 1;
@@ -28,8 +32,6 @@ public class PanelScript : MonoBehaviour
         } else if(player.charges >= 3){
           Debug.Log("Full of charges");
         }
-        Debug.Log("player:" + player.charges);
-        Debug.Log("panel" + panelCharges);
       }
       //give the panel a charge
       if(Input.GetKeyDown("e") && panelInteract == true){
@@ -41,8 +43,15 @@ public class PanelScript : MonoBehaviour
         } else if(player.charges <= 0){
           Debug.Log("No charges left");
         }
-        Debug.Log("player:" + player.charges);
-        Debug.Log("panel" + panelCharges);
+      }
+
+      switch(panelCharges){
+        case 1: spriteRenderer.sprite = panel1;
+        break;
+        case 2: spriteRenderer.sprite = panel2;
+        break;
+        case 3: spriteRenderer.sprite = panel3;
+        break;
       }
     }
 

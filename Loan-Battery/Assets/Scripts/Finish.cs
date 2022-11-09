@@ -6,24 +6,26 @@ using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
   public StartGame increaseLvl;
+  private int lvlNum;
+
+  public AudioSource victory;
+  public AudioSource spawn;
     // Start is called before the first frame update
     void Start()
     {
-      increaseLvl = FindObjectOfType<StartGame>();
+      //lvlNum = increaseLvl.levelNum;
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
       if(collision.gameObject.tag == "player"){
+        victory.Play();
         //increaseLvl.IncreaseLevel();
-        Invoke("CompleteLevel", 1f);
+        Invoke("CompleteLevel", 2f);
       }
     }
 
     private void CompleteLevel(){
-      // if(increaseLvl.levelNum >= 3){
-      //   Debug.Log("Game over");
-      // } else {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-      //}
+        spawn.Play();
     }
 }

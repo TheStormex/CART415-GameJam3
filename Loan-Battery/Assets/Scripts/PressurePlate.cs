@@ -5,8 +5,14 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
   public GameObject door;
+  public SpriteRenderer spriteRenderer;
+  public Sprite plateDown;
+  public Sprite plateUp;
   private BoxCollider2D plateColl;
   private Rigidbody2D plateRB;
+
+  public AudioSource plateOn;
+  public AudioSource plateOff;
 
   private bool doorOpen;
   private float doorX;
@@ -32,10 +38,14 @@ public class PressurePlate : MonoBehaviour
       //touches corpse
       if(target.gameObject.tag == "corpse"){
         door.transform.position = new Vector2(doorX, doorY + 5f);
-        this.gameObject.SetActive(false);
+        spriteRenderer.sprite = plateDown;
+        plateOn.Play();
+        plateColl.enabled = false;
       }
       if(target.gameObject.tag == "player"){
         doorOpen = true;
+        spriteRenderer.sprite = plateDown;
+        plateOn.Play();
       }
     }
     //check when collisions stop (for interactions)
@@ -43,6 +53,8 @@ public class PressurePlate : MonoBehaviour
       if(target.gameObject.tag == "player"){
         doorOpen = false;
         door.transform.position = new Vector2(doorX, doorY);
+        spriteRenderer.sprite = plateUp;
+        plateOff.Play();
       }
     }
 }

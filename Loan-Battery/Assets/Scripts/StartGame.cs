@@ -9,7 +9,7 @@ public class StartGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      Debug.Log(levelNum);
+
     }
 
     public void IncreaseLevel(){
@@ -21,11 +21,11 @@ public class StartGame : MonoBehaviour
       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void ContinueGame(){
-      if(levelNum >= 3){
-        Debug.Log("Game over");
-      } else {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + levelNum);
-      }
-    }
+    // public void ContinueGame(){
+    //   if(levelNum >= 3){
+    //     Debug.Log("Game over");
+    //   } else {
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + levelNum);
+    //   }
+    // }
 }
